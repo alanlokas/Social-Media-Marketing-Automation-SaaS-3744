@@ -1,194 +1,242 @@
-import React, { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
-import * as FiIcons from 'react-icons/fi';
-import * as BiIcons from 'react-icons/bi';
-import SafeIcon from '../../common/SafeIcon';
+import React, { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
+import * as FiIcons from "react-icons/fi";
+import * as BiIcons from "react-icons/bi";
+import SafeIcon from "../../common/SafeIcon";
 
 const {
-  FiHome, FiCalendar, FiBarChart3, FiMessageSquare, FiZap, FiSettings,
-  FiHelpCircle, FiBell, FiX, FiChevronDown, FiChevronRight, FiUsers,
-  FiSearch, FiImage, FiEye, FiEdit3, FiSmartphone
+  FiHome,
+  FiCalendar,
+  FiBarChart3,
+  FiMessageSquare,
+  FiZap,
+  FiSettings,
+  FiHelpCircle,
+  FiBell,
+  FiX,
+  FiChevronDown,
+  FiChevronRight,
+  FiUsers,
+  FiSearch,
+  FiImage,
+  FiEye,
+  FiEdit3,
+  FiSmartphone,
 } = FiIcons;
 
 const Sidebar = ({ isOpen, setIsOpen }) => {
   const location = useLocation();
-  const [expandedSections, setExpandedSections] = useState(['main']);
+  const [expandedSections, setExpandedSections] = useState(["main"]);
   const [notifications] = useState(12);
 
   const toggleSection = (sectionId) => {
-    setExpandedSections(prev =>
+    setExpandedSections((prev) =>
       prev.includes(sectionId)
-        ? prev.filter(id => id !== sectionId)
+        ? prev.filter((id) => id !== sectionId)
         : [...prev, sectionId]
     );
   };
 
   const menuSections = [
     {
-      id: 'main',
-      title: 'Glavni workflow',
+      id: "main",
+      title: "Glavni workflow",
       items: [
         {
-          name: 'Dashboard',
-          path: '/',
+          name: "Dashboard",
+          path: "/",
           icon: FiHome,
           badge: null,
-          description: 'Pregled performansi i aktivnosti'
+          description: "Pregled performansi i aktivnosti",
         },
         {
-          name: 'Planer sadržaja',
-          path: '/planer',
+          name: "Planer sadržaja",
+          path: "/planer",
           icon: FiCalendar,
-          badge: '3',
-          description: 'Kalendar i kreiranje objava',
+          badge: "3",
+          description: "Kalendar i kreiranje objava",
           subItems: [
-            { name: 'Kalendar objava', path: '/planer/kalendar' },
-            { name: 'Kreator objava', path: '/planer/kreator' },
-            { name: 'Nacrti', path: '/planer/nacrti', badge: '5' },
-            { name: 'Zakazane objave', path: '/planer/zakazane' },
-            { name: 'Objavljeno', path: '/planer/objavljeno' }
-          ]
+            { name: "Kalendar objava", path: "/planer/kalendar" },
+            { name: "Kreator objava", path: "/planer/kreator" },
+            { name: "Nacrti", path: "/planer/nacrti", badge: "5" },
+            { name: "Zakazane objave", path: "/planer/zakazane" },
+            { name: "Objavljeno", path: "/planer/objavljeno" },
+          ],
         },
         {
-          name: 'Analitika',
-          path: '/analitika',
+          name: "Analitika",
+          path: "/analitika",
           icon: FiBarChart3,
           badge: null,
-          description: 'Performanse i izvještaji',
+          description: "Performanse i izvještaji",
           subItems: [
-            { name: 'Pregled performansi', path: '/analitika/pregled' },
-            { name: 'Engagement metrike', path: '/analitika/engagement' },
-            { name: 'Demografija publike', path: '/analitika/demografija' },
-            { name: 'Analiza konkurencije', path: '/analitika/konkurencija' },
-            { name: 'ROI tracking', path: '/analitika/roi' },
-            { name: 'Custom izvještaji', path: '/analitika/custom' }
-          ]
+            { name: "Pregled performansi", path: "/analitika/pregled" },
+            { name: "Engagement metrike", path: "/analitika/engagement" },
+            { name: "Demografija publike", path: "/analitika/demografija" },
+            { name: "Analiza konkurencije", path: "/analitika/konkurencija" },
+            { name: "ROI tracking", path: "/analitika/roi" },
+            { name: "Custom izvještaji", path: "/analitika/custom" },
+          ],
         },
         {
-          name: 'Inbox',
-          path: '/inbox',
+          name: "Inbox",
+          path: "/inbox",
           icon: FiMessageSquare,
-          badge: '24',
-          description: 'Komentari, poruke i mentions',
+          badge: "24",
+          description: "Komentari, poruke i mentions",
           subItems: [
-            { name: 'Svi komentari', path: '/inbox/komentari' },
-            { name: 'Direktne poruke', path: '/inbox/poruke', badge: '8' },
-            { name: 'Mentions', path: '/inbox/mentions', badge: '3' },
-            { name: 'Reviews', path: '/inbox/reviews' },
-            { name: 'Neodgovoreno', path: '/inbox/neodgovoreno', badge: '13' },
-            { name: 'Archived', path: '/inbox/archived' }
-          ]
+            { name: "Svi komentari", path: "/inbox/komentari" },
+            { name: "Direktne poruke", path: "/inbox/poruke", badge: "8" },
+            { name: "Mentions", path: "/inbox/mentions", badge: "3" },
+            { name: "Reviews", path: "/inbox/reviews" },
+            { name: "Neodgovoreno", path: "/inbox/neodgovoreno", badge: "13" },
+            { name: "Archived", path: "/inbox/archived" },
+          ],
         },
         {
-          name: 'Automatizacija',
-          path: '/automatizacija',
+          name: "Automatizacija",
+          path: "/automatizacija",
           icon: FiZap,
-          badge: 'NEW',
-          description: 'Workflow-ovi i auto-odgovori',
+          badge: "NEW",
+          description: "Workflow-ovi i auto-odgovori",
           subItems: [
-            { name: 'Workflow builder', path: '/automatizacija/workflow' },
-            { name: 'Auto-odgovori', path: '/automatizacija/odgovori' },
-            { name: 'Pravilnik objavljivanja', path: '/automatizacija/pravilnik' },
-            { name: 'Trigger-i i akcije', path: '/automatizacija/triggeri' },
-            { name: 'A/B testovi', path: '/automatizacija/ab-test' }
-          ]
-        }
-      ]
+            { name: "Workflow builder", path: "/automatizacija/workflow" },
+            { name: "Auto-odgovori", path: "/automatizacija/odgovori" },
+            {
+              name: "Pravilnik objavljivanja",
+              path: "/automatizacija/pravilnik",
+            },
+            { name: "Trigger-i i akcije", path: "/automatizacija/triggeri" },
+            { name: "A/B testovi", path: "/automatizacija/ab-test" },
+          ],
+        },
+      ],
     },
     {
-      id: 'platforms',
-      title: 'Platforme',
+      id: "platforms",
+      title: "Platforme",
       items: [
         {
-          name: 'Platforme',
-          path: '/platforme',
+          name: "Platforme",
+          path: "/platforme",
           icon: FiSmartphone,
           badge: null,
           subItems: [
-            { name: 'Facebook', path: '/platforme/facebook', status: 'connected' },
-            { name: 'Instagram', path: '/platforme/instagram', status: 'connected' },
-            { name: 'Twitter/X', path: '/platforme/twitter', status: 'connected' },
-            { name: 'LinkedIn', path: '/platforme/linkedin', status: 'disconnected' },
-            { name: 'TikTok', path: '/platforme/tiktok', status: 'connected' },
-            { name: 'YouTube', path: '/platforme/youtube', status: 'disconnected' },
-            { name: 'Pinterest', path: '/platforme/pinterest', status: 'disconnected' }
-          ]
-        }
-      ]
+            {
+              name: "Facebook",
+              path: "/platforme/facebook",
+              status: "connected",
+            },
+            {
+              name: "Instagram",
+              path: "/platforme/instagram",
+              status: "connected",
+            },
+            {
+              name: "Twitter/X",
+              path: "/platforme/twitter",
+              status: "connected",
+            },
+            {
+              name: "LinkedIn",
+              path: "/platforme/linkedin",
+              status: "disconnected",
+            },
+            { name: "TikTok", path: "/platforme/tiktok", status: "connected" },
+            {
+              name: "YouTube",
+              path: "/platforme/youtube",
+              status: "disconnected",
+            },
+            {
+              name: "Pinterest",
+              path: "/platforme/pinterest",
+              status: "disconnected",
+            },
+          ],
+        },
+      ],
     },
     {
-      id: 'creative',
-      title: 'Kreativni alati',
+      id: "creative",
+      title: "Kreativni alati",
       items: [
         {
-          name: 'Kreativni alati',
-          path: '/kreativni',
+          name: "Kreativni alati",
+          path: "/kreativni",
           icon: FiImage,
           badge: null,
           subItems: [
-            { name: 'Biblioteka medija', path: '/kreativni/biblioteka' },
-            { name: 'Grafički editor', path: '/kreativni/editor' },
-            { name: 'Template-i', path: '/kreativni/templates' },
-            { name: 'Brand assets', path: '/kreativni/brand' },
-            { name: 'Stock photos', path: '/kreativni/stock' },
-            { name: 'Video editor', path: '/kreativni/video' }
-          ]
-        }
-      ]
+            { name: "Biblioteka medija", path: "/kreativni/biblioteka" },
+            { name: "Grafički editor", path: "/kreativni/editor" },
+            { name: "Template-i", path: "/kreativni/templates" },
+            { name: "Brand assets", path: "/kreativni/brand" },
+            { name: "Stock photos", path: "/kreativni/stock" },
+            { name: "Video editor", path: "/kreativni/video" },
+          ],
+        },
+      ],
     },
     {
-      id: 'team',
-      title: 'Tim i istraživanje',
+      id: "team",
+      title: "Tim i istraživanje",
       items: [
         {
-          name: 'Tim',
-          path: '/tim',
+          name: "Tim",
+          path: "/tim",
           icon: FiUsers,
           badge: null,
           subItems: [
-            { name: 'Članovi tima', path: '/tim/clanovi' },
-            { name: 'Uloge i dozvole', path: '/tim/uloge' },
-            { name: 'Workflow odobravanje', path: '/tim/odobravanje', badge: '2' },
-            { name: 'Aktivnosti tima', path: '/tim/aktivnosti' },
-            { name: 'Notifikacije', path: '/tim/notifikacije' }
-          ]
+            { name: "Članovi tima", path: "/tim/clanovi" },
+            { name: "Uloge i dozvole", path: "/tim/uloge" },
+            {
+              name: "Workflow odobravanje",
+              path: "/tim/odobravanje",
+              badge: "2",
+            },
+            { name: "Aktivnosti tima", path: "/tim/aktivnosti" },
+            { name: "Notifikacije", path: "/tim/notifikacije" },
+          ],
         },
         {
-          name: 'Istraživanje',
-          path: '/istrazivanje',
+          name: "Istraživanje",
+          path: "/istrazivanje",
           icon: FiSearch,
           badge: null,
           subItems: [
-            { name: 'Trending topics', path: '/istrazivanje/trending' },
-            { name: 'Hashtag analyzer', path: '/istrazivanje/hashtags' },
-            { name: 'Competitor tracking', path: '/istrazivanje/konkurenti' },
-            { name: 'Influencer discovery', path: '/istrazivanje/influenceri' },
-            { name: 'Content ideas', path: '/istrazivanje/ideje' },
-            { name: 'Industry insights', path: '/istrazivanje/insights' }
-          ]
-        }
-      ]
-    }
+            { name: "Trending topics", path: "/istrazivanje/trending" },
+            { name: "Hashtag analyzer", path: "/istrazivanje/hashtags" },
+            { name: "Competitor tracking", path: "/istrazivanje/konkurenti" },
+            { name: "Influencer discovery", path: "/istrazivanje/influenceri" },
+            { name: "Content ideas", path: "/istrazivanje/ideje" },
+            { name: "Industry insights", path: "/istrazivanje/insights" },
+          ],
+        },
+      ],
+    },
   ];
 
   const bottomMenuItems = [
-    { name: 'Podešavanja', path: '/podesavanja', icon: FiSettings },
-    { name: 'Pomoć', path: '/pomoc', icon: FiHelpCircle },
+    { name: "Podešavanja", path: "/podesavanja", icon: FiSettings },
+    { name: "Pomoć", path: "/pomoc", icon: FiHelpCircle },
   ];
 
   const getBadgeColor = (badge) => {
-    if (!badge) return '';
-    if (badge === 'NEW') return 'bg-green-500 text-white';
-    if (parseInt(badge) > 0) return 'bg-red-500 text-white';
-    return 'bg-gray-500 text-white';
+    if (!badge) return "";
+    if (badge === "NEW") return "bg-green-500 text-white";
+    if (parseInt(badge) > 0) return "bg-red-500 text-white";
+    return "bg-gray-500 text-white";
   };
 
   const getConnectionStatus = (status) => {
     switch (status) {
-      case 'connected': return 'bg-green-400';
-      case 'disconnected': return 'bg-gray-400';
-      default: return '';
+      case "connected":
+        return "bg-green-400";
+      case "disconnected":
+        return "bg-gray-400";
+      default:
+        return "";
     }
   };
 
@@ -198,22 +246,29 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
     const isExpanded = expandedSections.includes(item.path);
 
     return (
-      <div className={`${isSubItem ? 'ml-6' : ''}`}>
+      <div className={`${isSubItem ? "ml-6" : ""}`}>
         <div className="flex items-center group">
           <Link
             to={item.path}
             onClick={() => setIsOpen(false)}
             className={`flex-1 flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-all duration-200 ${
               isActive
-                ? 'text-primary-600 bg-primary-50 border-r-2 border-primary-600'
-                : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
-            } ${isSubItem ? 'text-xs pl-4' : ''}`}
+                ? "text-primary-600 bg-primary-50 border-r-2 border-primary-600"
+                : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
+            } ${isSubItem ? "text-xs pl-4" : ""}`}
           >
             {!isSubItem && (
-              <SafeIcon icon={item.icon} className="w-5 h-5 mr-3 flex-shrink-0" />
+              <SafeIcon
+                icon={item.icon}
+                className="w-5 h-5 mr-3 flex-shrink-0"
+              />
             )}
             {isSubItem && item.status && (
-              <div className={`w-2 h-2 rounded-full mr-2 ${getConnectionStatus(item.status)}`} />
+              <div
+                className={`w-2 h-2 rounded-full mr-2 ${getConnectionStatus(
+                  item.status
+                )}`}
+              />
             )}
             <span className="flex-1 truncate">{item.name}</span>
             {item.badge && (
@@ -243,7 +298,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
           {hasSubItems && isExpanded && parentExpanded && (
             <motion.div
               initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
+              animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.2 }}
               className="mt-1 space-y-1"
@@ -273,7 +328,8 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
         initial={false}
         animate={{ x: isOpen ? 0 : -320 }}
         transition={{ type: "spring", stiffness: 300, damping: 30 }}
-        className="fixed lg:relative inset-y-0 left-0 z-50 w-80 bg-white shadow-xl lg:shadow-none lg:translate-x-0 border-r border-gray-200 overflow-y-auto h-screen"
+        // className="fixed lg:relative inset-y-0 left-0 z-50 w-80 bg-white shadow-xl lg:shadow-none lg:translate-x-0 border-r border-gray-200 overflow-y-auto h-screen"
+        className="fixed inset-y-0 left-0 z-50 w-80 bg-white shadow-xl lg:shadow-none lg:translate-x-0 border-r border-gray-200 overflow-y-auto h-screen"
       >
         {/* Header */}
         <div className="flex items-center justify-between h-16 px-6 border-b border-gray-200">
@@ -289,7 +345,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
               <SafeIcon icon={FiBell} className="w-5 h-5" />
               {notifications > 0 && (
                 <span className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center">
-                  {notifications > 9 ? '9+' : notifications}
+                  {notifications > 9 ? "9+" : notifications}
                 </span>
               )}
             </button>
@@ -340,13 +396,17 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
                   {sectionExpanded && (
                     <motion.div
                       initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: 'auto' }}
+                      animate={{ opacity: 1, height: "auto" }}
                       exit={{ opacity: 0, height: 0 }}
                       transition={{ duration: 0.2 }}
                       className="space-y-1"
                     >
                       {section.items.map((item) => (
-                        <MenuItem key={item.path} item={item} parentExpanded={sectionExpanded} />
+                        <MenuItem
+                          key={item.path}
+                          item={item}
+                          parentExpanded={sectionExpanded}
+                        />
                       ))}
                     </motion.div>
                   )}
@@ -366,8 +426,8 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
                 onClick={() => setIsOpen(false)}
                 className={`flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-colors ${
                   location.pathname === item.path
-                    ? 'text-primary-600 bg-primary-50'
-                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+                    ? "text-primary-600 bg-primary-50"
+                    : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
                 }`}
               >
                 <SafeIcon icon={item.icon} className="w-5 h-5 mr-3" />
@@ -384,8 +444,12 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
                 className="w-8 h-8 rounded-full"
               />
               <div className="ml-3 flex-1 min-w-0">
-                <p className="text-sm font-medium text-gray-900 truncate">Marko Petrović</p>
-                <p className="text-xs text-gray-500 truncate">marko@company.com</p>
+                <p className="text-sm font-medium text-gray-900 truncate">
+                  Marko Petrović
+                </p>
+                <p className="text-xs text-gray-500 truncate">
+                  marko@company.com
+                </p>
               </div>
               <button className="ml-2 p-1 text-gray-400 hover:text-gray-600">
                 <SafeIcon icon={FiSettings} className="w-4 h-4" />
