@@ -315,149 +315,158 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
 
   return (
     <>
-      {/* Mobile backdrop */}
-      {isOpen && (
-        <div
-          className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
-          onClick={() => setIsOpen(false)}
-        />
-      )}
+      {/* Backdrop for both mobile and desktop */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black bg-opacity-50 z-40"
+            onClick={() => setIsOpen(false)}
+          />
+        )}
+      </AnimatePresence>
 
       {/* Sidebar */}
-      <motion.div
-        initial={false}
-        animate={{ x: isOpen ? 0 : -320 }}
-        transition={{ type: "spring", stiffness: 300, damping: 30 }}
-        // className="fixed lg:relative inset-y-0 left-0 z-50 w-80 bg-white shadow-xl lg:shadow-none lg:translate-x-0 border-r border-gray-200 overflow-y-auto h-screen"
-        className="fixed inset-y-0 left-0 z-50 w-80 bg-white shadow-xl lg:shadow-none lg:translate-x-0 border-r border-gray-200 overflow-y-auto h-screen"
-      >
-        {/* Header */}
-        <div className="flex items-center justify-between h-16 px-6 border-b border-gray-200">
-          <div className="flex items-center">
-            <h1 className="text-xl font-bold text-gray-900">SocialAI</h1>
-            <span className="ml-2 text-xs px-2 py-1 bg-primary-100 text-primary-800 rounded-full">
-              Pro
-            </span>
-          </div>
-          <div className="flex items-center space-x-2">
-            {/* Notifications */}
-            <button className="relative p-2 text-gray-400 hover:text-gray-600 rounded-lg hover:bg-gray-100">
-              <SafeIcon icon={FiBell} className="w-5 h-5" />
-              {notifications > 0 && (
-                <span className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center">
-                  {notifications > 9 ? "9+" : notifications}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ x: -320 }}
+            animate={{ x: 0 }}
+            exit={{ x: -320 }}
+            transition={{ type: "spring", damping: 25, stiffness: 200 }}
+            className="fixed inset-y-0 left-0 z-50 w-80 bg-white shadow-xl border-r border-gray-200 overflow-y-auto"
+          >
+            {/* Header */}
+            <div className="flex items-center justify-between h-16 px-6 border-b border-gray-200">
+              <div className="flex items-center">
+                <h1 className="text-xl font-bold text-gray-900">SocialAI</h1>
+                <span className="ml-2 text-xs px-2 py-1 bg-primary-100 text-primary-800 rounded-full">
+                  Pro
                 </span>
-              )}
-            </button>
-            {/* Close button for mobile */}
-            <button
-              onClick={() => setIsOpen(false)}
-              className="lg:hidden p-2 rounded-md hover:bg-gray-100"
-            >
-              <SafeIcon icon={FiX} className="w-5 h-5" />
-            </button>
-          </div>
-        </div>
-
-        {/* Search */}
-        <div className="p-4 border-b border-gray-200">
-          <div className="relative">
-            <SafeIcon
-              icon={FiSearch}
-              className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400"
-            />
-            <input
-              type="text"
-              placeholder="Pretraži funkcije..."
-              className="w-full pl-10 pr-4 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-            />
-          </div>
-        </div>
-
-        {/* Navigation */}
-        <nav className="flex-1 overflow-y-auto p-4 space-y-6">
-          {menuSections.map((section) => {
-            const sectionExpanded = expandedSections.includes(section.id);
-            return (
-              <div key={section.id}>
-                <button
-                  onClick={() => toggleSection(section.id)}
-                  className="flex items-center justify-between w-full text-left mb-3"
-                >
-                  <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
-                    {section.title}
-                  </h3>
-                  <SafeIcon
-                    icon={sectionExpanded ? FiChevronDown : FiChevronRight}
-                    className="w-4 h-4 text-gray-400"
-                  />
-                </button>
-                <AnimatePresence>
-                  {sectionExpanded && (
-                    <motion.div
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: "auto" }}
-                      exit={{ opacity: 0, height: 0 }}
-                      transition={{ duration: 0.2 }}
-                      className="space-y-1"
-                    >
-                      {section.items.map((item) => (
-                        <MenuItem
-                          key={item.path}
-                          item={item}
-                          parentExpanded={sectionExpanded}
-                        />
-                      ))}
-                    </motion.div>
+              </div>
+              <div className="flex items-center space-x-2">
+                {/* Notifications */}
+                <button className="relative p-2 text-gray-400 hover:text-gray-600 rounded-lg hover:bg-gray-100">
+                  <SafeIcon icon={FiBell} className="w-5 h-5" />
+                  {notifications > 0 && (
+                    <span className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center">
+                      {notifications > 9 ? "9+" : notifications}
+                    </span>
                   )}
-                </AnimatePresence>
+                </button>
+                {/* Close button */}
+                <button
+                  onClick={() => setIsOpen(false)}
+                  className="p-2 rounded-md hover:bg-gray-100 transition-colors"
+                >
+                  <SafeIcon icon={FiX} className="w-5 h-5" />
+                </button>
               </div>
-            );
-          })}
-        </nav>
-
-        {/* Bottom Menu */}
-        <div className="border-t border-gray-200 p-4">
-          <div className="space-y-1">
-            {bottomMenuItems.map((item) => (
-              <Link
-                key={item.path}
-                to={item.path}
-                onClick={() => setIsOpen(false)}
-                className={`flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-colors ${
-                  location.pathname === item.path
-                    ? "text-primary-600 bg-primary-50"
-                    : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
-                }`}
-              >
-                <SafeIcon icon={item.icon} className="w-5 h-5 mr-3" />
-                {item.name}
-              </Link>
-            ))}
-          </div>
-          {/* User Profile */}
-          <div className="mt-4 pt-4 border-t border-gray-200">
-            <div className="flex items-center">
-              <img
-                src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=32&h=32&fit=crop&crop=face"
-                alt="Profile"
-                className="w-8 h-8 rounded-full"
-              />
-              <div className="ml-3 flex-1 min-w-0">
-                <p className="text-sm font-medium text-gray-900 truncate">
-                  Marko Petrović
-                </p>
-                <p className="text-xs text-gray-500 truncate">
-                  marko@company.com
-                </p>
-              </div>
-              <button className="ml-2 p-1 text-gray-400 hover:text-gray-600">
-                <SafeIcon icon={FiSettings} className="w-4 h-4" />
-              </button>
             </div>
-          </div>
-        </div>
-      </motion.div>
+
+            {/* Search */}
+            <div className="p-4 border-b border-gray-200">
+              <div className="relative">
+                <SafeIcon
+                  icon={FiSearch}
+                  className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400"
+                />
+                <input
+                  type="text"
+                  placeholder="Pretraži funkcije..."
+                  className="w-full pl-10 pr-4 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                />
+              </div>
+            </div>
+
+            {/* Navigation */}
+            <nav className="flex-1 overflow-y-auto p-4 space-y-6">
+              {menuSections.map((section) => {
+                const sectionExpanded = expandedSections.includes(section.id);
+                return (
+                  <div key={section.id}>
+                    <button
+                      onClick={() => toggleSection(section.id)}
+                      className="flex items-center justify-between w-full text-left mb-3"
+                    >
+                      <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                        {section.title}
+                      </h3>
+                      <SafeIcon
+                        icon={sectionExpanded ? FiChevronDown : FiChevronRight}
+                        className="w-4 h-4 text-gray-400"
+                      />
+                    </button>
+                    <AnimatePresence>
+                      {sectionExpanded && (
+                        <motion.div
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: "auto" }}
+                          exit={{ opacity: 0, height: 0 }}
+                          transition={{ duration: 0.2 }}
+                          className="space-y-1"
+                        >
+                          {section.items.map((item) => (
+                            <MenuItem
+                              key={item.path}
+                              item={item}
+                              parentExpanded={sectionExpanded}
+                            />
+                          ))}
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                );
+              })}
+            </nav>
+
+            {/* Bottom Menu */}
+            <div className="border-t border-gray-200 p-4">
+              <div className="space-y-1">
+                {bottomMenuItems.map((item) => (
+                  <Link
+                    key={item.path}
+                    to={item.path}
+                    onClick={() => setIsOpen(false)}
+                    className={`flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-colors ${
+                      location.pathname === item.path
+                        ? "text-primary-600 bg-primary-50"
+                        : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
+                    }`}
+                  >
+                    <SafeIcon icon={item.icon} className="w-5 h-5 mr-3" />
+                    {item.name}
+                  </Link>
+                ))}
+              </div>
+              {/* User Profile */}
+              <div className="mt-4 pt-4 border-t border-gray-200">
+                <div className="flex items-center">
+                  <img
+                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=32&h=32&fit=crop&crop=face"
+                    alt="Profile"
+                    className="w-8 h-8 rounded-full"
+                  />
+                  <div className="ml-3 flex-1 min-w-0">
+                    <p className="text-sm font-medium text-gray-900 truncate">
+                      Marko Petrović
+                    </p>
+                    <p className="text-xs text-gray-500 truncate">
+                      marko@company.com
+                    </p>
+                  </div>
+                  <button className="ml-2 p-1 text-gray-400 hover:text-gray-600">
+                    <SafeIcon icon={FiSettings} className="w-4 h-4" />
+                  </button>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 };

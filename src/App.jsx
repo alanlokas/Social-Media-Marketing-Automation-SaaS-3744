@@ -1,19 +1,19 @@
-import React, { useState } from 'react';
-import { HashRouter as Router, Routes, Route } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import Sidebar from './components/layout/Sidebar';
-import Header from './components/layout/Header';
-import QuickActions from './components/common/QuickActions';
-import KeyboardShortcuts from './components/common/KeyboardShortcuts';
+import React, { useState } from "react";
+import { HashRouter as Router, Routes, Route } from "react-router-dom";
+import { motion } from "framer-motion";
+import Sidebar from "./components/layout/Sidebar";
+import Header from "./components/layout/Header";
+import QuickActions from "./components/common/QuickActions";
+import KeyboardShortcuts from "./components/common/KeyboardShortcuts";
 
 // Pages
-import Dashboard from './pages/Dashboard';
-import Campaigns from './pages/Campaigns';
-import Scheduler from './pages/Scheduler';
-import Analytics from './pages/Analytics';
-import ContentGenerator from './pages/ContentGenerator';
-import Settings from './pages/Settings';
-import './App.css';
+import Dashboard from "./pages/Dashboard";
+import Campaigns from "./pages/Campaigns";
+import Scheduler from "./pages/Scheduler";
+import Analytics from "./pages/Analytics";
+import ContentGenerator from "./pages/ContentGenerator";
+import Settings from "./pages/Settings";
+import "./App.css";
 
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);

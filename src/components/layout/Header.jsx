@@ -1,11 +1,19 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import * as FiIcons from 'react-icons/fi';
-import SafeIcon from '../../common/SafeIcon';
+import React, { useState } from "react";
+import { motion } from "framer-motion";
+import * as FiIcons from "react-icons/fi";
+import SafeIcon from "../../common/SafeIcon";
 
-const { 
-  FiMenu, FiBell, FiUser, FiSearch, FiPlus, FiChevronDown,
-  FiSettings, FiCreditCard, FiHelpCircle, FiLogOut
+const {
+  FiMenu,
+  FiBell,
+  FiUser,
+  FiSearch,
+  FiPlus,
+  FiChevronDown,
+  FiSettings,
+  FiCreditCard,
+  FiHelpCircle,
+  FiLogOut,
 } = FiIcons;
 
 const Header = ({ setSidebarOpen }) => {
@@ -13,19 +21,44 @@ const Header = ({ setSidebarOpen }) => {
   const [showProfile, setShowProfile] = useState(false);
 
   const notifications = [
-    { id: 1, text: 'Nova objava je uspješno objavljena', time: '5 min', type: 'success' },
-    { id: 2, text: 'Kampanja "Ljetna promocija" je završena', time: '1h', type: 'info' },
-    { id: 3, text: 'Novi komentar na Instagram objavi', time: '2h', type: 'comment' },
-    { id: 4, text: 'Budžet kampanje je prekoračen', time: '3h', type: 'warning' },
+    {
+      id: 1,
+      text: "Nova objava je uspješno objavljena",
+      time: "5 min",
+      type: "success",
+    },
+    {
+      id: 2,
+      text: 'Kampanja "Ljetna promocija" je završena',
+      time: "1h",
+      type: "info",
+    },
+    {
+      id: 3,
+      text: "Novi komentar na Instagram objavi",
+      time: "2h",
+      type: "comment",
+    },
+    {
+      id: 4,
+      text: "Budžet kampanje je prekoračen",
+      time: "3h",
+      type: "warning",
+    },
   ];
 
   const getNotificationIcon = (type) => {
     switch (type) {
-      case 'success': return '✅';
-      case 'info': return 'ℹ️';
-      case 'comment': return '💬';
-      case 'warning': return '⚠️';
-      default: return '📢';
+      case "success":
+        return "✅";
+      case "info":
+        return "ℹ️";
+      case "comment":
+        return "💬";
+      case "warning":
+        return "⚠️";
+      default:
+        return "📢";
     }
   };
 
@@ -34,16 +67,20 @@ const Header = ({ setSidebarOpen }) => {
       <div className="flex items-center justify-between h-16 px-4 lg:px-8">
         {/* Left Side */}
         <div className="flex items-center space-x-4">
+          {/* Menu button for both mobile and desktop */}
           <button
             onClick={() => setSidebarOpen(true)}
-            className="lg:hidden p-2 rounded-md hover:bg-gray-100 transition-colors"
+            className="p-2 rounded-md hover:bg-gray-100 transition-colors"
           >
             <SafeIcon icon={FiMenu} className="w-5 h-5" />
           </button>
 
           {/* Quick Search */}
           <div className="hidden md:block relative">
-            <SafeIcon icon={FiSearch} className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+            <SafeIcon
+              icon={FiSearch}
+              className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400"
+            />
             <input
               type="text"
               placeholder="Pretraži objave, kampanje..."
@@ -91,7 +128,9 @@ const Header = ({ setSidebarOpen }) => {
               >
                 <div className="p-4 border-b border-gray-200">
                   <div className="flex items-center justify-between">
-                    <h3 className="text-sm font-semibold text-gray-900">Obavještenja</h3>
+                    <h3 className="text-sm font-semibold text-gray-900">
+                      Obavještenja
+                    </h3>
                     <button className="text-xs text-primary-600 hover:text-primary-700">
                       Označi sve kao pročitano
                     </button>
@@ -99,12 +138,21 @@ const Header = ({ setSidebarOpen }) => {
                 </div>
                 <div className="max-h-64 overflow-y-auto">
                   {notifications.map((notification) => (
-                    <div key={notification.id} className="p-3 border-b border-gray-100 hover:bg-gray-50 cursor-pointer">
+                    <div
+                      key={notification.id}
+                      className="p-3 border-b border-gray-100 hover:bg-gray-50 cursor-pointer"
+                    >
                       <div className="flex items-start space-x-3">
-                        <span className="text-lg">{getNotificationIcon(notification.type)}</span>
+                        <span className="text-lg">
+                          {getNotificationIcon(notification.type)}
+                        </span>
                         <div className="flex-1 min-w-0">
-                          <p className="text-sm text-gray-900">{notification.text}</p>
-                          <p className="text-xs text-gray-500 mt-1">{notification.time}</p>
+                          <p className="text-sm text-gray-900">
+                            {notification.text}
+                          </p>
+                          <p className="text-xs text-gray-500 mt-1">
+                            {notification.time}
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -136,10 +184,15 @@ const Header = ({ setSidebarOpen }) => {
                 className="w-8 h-8 rounded-full"
               />
               <div className="hidden sm:block text-left">
-                <p className="text-sm font-medium text-gray-900">Marko Petrović</p>
+                <p className="text-sm font-medium text-gray-900">
+                  Marko Petrović
+                </p>
                 <p className="text-xs text-gray-500">Admin</p>
               </div>
-              <SafeIcon icon={FiChevronDown} className="w-4 h-4 text-gray-500" />
+              <SafeIcon
+                icon={FiChevronDown}
+                className="w-4 h-4 text-gray-500"
+              />
             </motion.button>
 
             {/* Profile Dropdown */}
@@ -158,7 +211,9 @@ const Header = ({ setSidebarOpen }) => {
                       className="w-10 h-10 rounded-full"
                     />
                     <div>
-                      <p className="text-sm font-medium text-gray-900">Marko Petrović</p>
+                      <p className="text-sm font-medium text-gray-900">
+                        Marko Petrović
+                      </p>
                       <p className="text-xs text-gray-500">marko@company.com</p>
                       <span className="inline-block mt-1 px-2 py-1 text-xs bg-primary-100 text-primary-800 rounded-full">
                         Pro Plan
@@ -166,13 +221,12 @@ const Header = ({ setSidebarOpen }) => {
                     </div>
                   </div>
                 </div>
-                
                 <div className="py-2">
                   {[
-                    { label: 'Moj profil', icon: FiUser },
-                    { label: 'Podešavanja', icon: FiSettings },
-                    { label: 'Billing', icon: FiCreditCard },
-                    { label: 'Pomoć', icon: FiHelpCircle },
+                    { label: "Moj profil", icon: FiUser },
+                    { label: "Podešavanja", icon: FiSettings },
+                    { label: "Billing", icon: FiCreditCard },
+                    { label: "Pomoć", icon: FiHelpCircle },
                   ].map((item, index) => (
                     <button
                       key={index}
@@ -183,7 +237,6 @@ const Header = ({ setSidebarOpen }) => {
                     </button>
                   ))}
                 </div>
-                
                 <div className="border-t border-gray-200 py-2">
                   <button className="w-full flex items-center px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors">
                     <SafeIcon icon={FiLogOut} className="w-4 h-4 mr-3" />
@@ -199,7 +252,10 @@ const Header = ({ setSidebarOpen }) => {
       {/* Mobile Search */}
       <div className="md:hidden px-4 pb-3 border-t border-gray-200">
         <div className="relative">
-          <SafeIcon icon={FiSearch} className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+          <SafeIcon
+            icon={FiSearch}
+            className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400"
+          />
           <input
             type="text"
             placeholder="Pretraži..."
